@@ -12,18 +12,18 @@ public class MainController {
     private String mainPage() {
         String msg = "<h1>Примеры команд</h1>\n" +
                 "<h3>Добавить ингредиеты:</h3>\n" +
-                "http://127.0.0.1:8080/ingredient/add?name=\"Картофель\"&weight=300&measure=\"гр\"<br>\n" +
-                "http://127.0.0.1:8080/ingredient/add?name=\"Помидоры\"&weight=2&measure=\"шт.\"\n" +
+                "http://127.0.0.1:8080/ingredient/add?name=Картофель&weight=300&measure=гр<br>\n" +
+                "http://127.0.0.1:8080/ingredient/add?name=Помидоры&weight=2&measure=шт.\n" +
                 "<h3>Вывести список всех ингредиентов:</h3>\n" +
                 "http://127.0.0.1:8080/ingredient/get-all\n" +
                 "<h3>Вывести информацию по ингредиенту:</h3>\n" +
                 "http://127.0.0.1:8080/ingredient/get?id=1\n" +
                 "<h3>Добавить рецепт:</h3>\n" +
-                "http://127.0.0.1:8080/recipe/add?name=\"Картофель с помидорами\"&time=30&ingId=1,2&steps=\"почистить картофель\",\"нарезать картофель\",\"нарезать помидоры\",\"обжарить всё\"<br>\n" +
+                "http://127.0.0.1:8080/recipe/add?name=Картофель с помидорами&time=30&ingId=0,1&steps=почистить картофель,нарезать картофель,нарезать помидоры,обжарить всё<br>\n" +
                 "<h3>Вывести список всех рецептов:</h3>\n" +
                 "http://127.0.0.1:8080/recipe/get-all\n" +
                 "<h3>Вывести информацию по рецепту:</h3>\n" +
-                "http://127.0.0.1:8080/recipe/get?id=1";
+                "http://127.0.0.1:8080/recipe/get?id=0";
         return msg;
     }
 
