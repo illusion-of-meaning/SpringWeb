@@ -26,12 +26,12 @@ public class IngredientController {
         return answer;
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/all")
     private Map<Integer, Ingredient> getAllIngredients() {
         return new IngredientsImpl().getAllIngredients();
     }
 
-    @GetMapping("/get")
+    @GetMapping
     private Ingredient getIngredient(@RequestParam Integer id) {
         return new IngredientsImpl().getIngredient(id);
     }

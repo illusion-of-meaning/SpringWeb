@@ -57,10 +57,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-//        StringBuffer result = new StringBuffer();
-//        result.append(name);
-//        result.append(cookingTime);
-
         return String.format("%s:\n\tвремя приготовления: %s\n\tингредиенты: %s\n\tшаги приготовления: %s", name, cookingTime, ingredients, steps);
     }
 }

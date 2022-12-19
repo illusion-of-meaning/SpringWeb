@@ -48,12 +48,12 @@ public class RecipeController {
         return answer;
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/all")
     private Map<Integer, Recipe> getAllRecipes() {
         return new RecipeBookImpl().getAllRecipes();
     }
 
-    @GetMapping("/get")
+    @GetMapping
     private Recipe getRecipe(@RequestParam Integer id) {
         return new RecipeBookImpl().getRecipe(id);
     }
