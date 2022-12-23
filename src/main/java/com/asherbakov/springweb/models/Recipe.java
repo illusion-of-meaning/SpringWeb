@@ -13,10 +13,10 @@ import java.util.Map;
 public class Recipe {
     private String name;
     private int cookingTime;
-    private Map<Integer, Ingredient> ingredients = new HashMap<>();
+    private Map<Long, Ingredient> ingredients = new HashMap<>();
     private List<String> steps = new ArrayList<>();
 
-    public Recipe(String name, int cookingTime, Map<Integer, Ingredient> ingredients, List<String> steps) {
+    public Recipe(String name, int cookingTime, Map<Long, Ingredient> ingredients, List<String> steps) {
         setName(name);
         setIngredients(ingredients);
         setSteps(steps);
@@ -39,7 +39,7 @@ public class Recipe {
         }
     }
 
-    public void setIngredients(Map<Integer, Ingredient> ingredients) {
+    public void setIngredients(Map<Long, Ingredient> ingredients) {
         if (!ingredients.isEmpty()) {
             this.ingredients = ingredients;
         } else {

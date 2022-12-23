@@ -9,8 +9,9 @@ import java.util.Map;
 
 @Service
 public class IngredientsImpl implements IngredientsService {
-    private static Integer id = 0;
-    private static final Map<Integer, Ingredient> ingredients = new HashMap<>();
+    private static Long id = 0L;
+    private static final Map<Long, Ingredient> ingredients = new HashMap<>();
+
     @Override
     public void addIngredient(Ingredient ingredient) {
         if (!ingredients.containsValue(ingredient)) {
@@ -19,12 +20,30 @@ public class IngredientsImpl implements IngredientsService {
     }
 
     @Override
-    public Map<Integer, Ingredient> getAllIngredients() {
+    public Map<Long, Ingredient> getAllIngredients() {
         return ingredients;
     }
 
     @Override
-    public Ingredient getIngredient(Integer i) {
+    public Ingredient getIngredient(Long i) {
         return ingredients.getOrDefault(i, null);
+    }
+
+    @Override
+    public boolean removeIngredient(Long i) {
+        if (ingredients.containsKey(i)) {
+            ingredients.remove(i);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editIngredient(Long i, Ingredient ingredient) {
+        if (ingredients.containsKey(i)) {
+            ingredients.replace(i, ingredient);
+            return true;
+        }
+        return false;
     }
 }

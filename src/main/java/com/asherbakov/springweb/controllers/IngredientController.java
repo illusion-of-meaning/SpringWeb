@@ -1,38 +1,55 @@
 package com.asherbakov.springweb.controllers;
 
 import com.asherbakov.springweb.models.Ingredient;
-import com.asherbakov.springweb.services.impl.IngredientsImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.asherbakov.springweb.services.IngredientsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
+    @Autowired
+    IngredientsService ingredientsService;
+
     @GetMapping("/add")
-    private String addIngredient(@RequestParam String name,
-                                 @RequestParam int weight,
-                                 @RequestParam("measure") String measureUnit) {
-        String answer = "";
+    private ResponseEntity<String> addIngredient(@RequestParam String name,
+                                                 @RequestParam int weight,
+                                                 @RequestParam("measure") String measureUnit) {
         try {
-            new IngredientsImpl().addIngredient(new Ingredient(name, weight, measureUnit));
-            answer = "Ингредиент добавлен.";
+            ingredientsService.addIngredient(new Ingredient(name, weight, measureUnit));
         } catch (Exception e) {
-            answer = "Ошибка: " + e.getMessage();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return answer;
+        return ResponseEntity.ok("Игредиент добавлен.<br><a href=\"http://127.0.0.1:8080/\" style=\"display:block;margin-top:10px;\">На главную</a>");
     }
 
     @GetMapping("/all")
-    private Map<Integer, Ingredient> getAllIngredients() {
-        return new IngredientsImpl().getAllIngredients();
+    private ResponseEntity<Map<Long, Ingredient>> getAllIngredients() {
+        return ResponseEntity.ok(ingredientsService.getAllIngredients());
     }
 
     @GetMapping
-    private Ingredient getIngredient(@RequestParam Integer id) {
-        return new IngredientsImpl().getIngredient(id);
+    private ResponseEntity<Ingredient> getIngredient(@RequestParam Long id) {
+        return ResponseEntity.ok(ingredientsService.getIngredient(id));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<String> deleteIngredient(@PathVariable Long id) {
+        if (!ingredientsService.removeIngredient(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Ингредиент удалён.");
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<String> editIngredient(@PathVariable Long id,
+                                                  @RequestBody Ingredient ingredient) {
+        if (!ingredientsService.editIngredient(id, ingredient)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Ингредиент изменён.");
     }
 }

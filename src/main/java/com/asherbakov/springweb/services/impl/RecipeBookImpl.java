@@ -9,8 +9,9 @@ import java.util.Map;
 
 @Service
 public class RecipeBookImpl implements RecipeBookService {
-    private static Integer id = 0;
-    private static final Map<Integer, Recipe> recipes = new HashMap<>();
+    private static Long id = 0L;
+    private static final Map<Long, Recipe> recipes = new HashMap<>();
+
     @Override
     public void addRecipe(Recipe recipe) {
         if (!recipes.containsValue(recipe)) {
@@ -19,12 +20,30 @@ public class RecipeBookImpl implements RecipeBookService {
     }
 
     @Override
-    public Map<Integer, Recipe> getAllRecipes() {
+    public Map<Long, Recipe> getAllRecipes() {
         return recipes;
     }
 
     @Override
-    public Recipe getRecipe(Integer i) {
+    public Recipe getRecipe(Long i) {
         return recipes.getOrDefault(i, null);
+    }
+
+    @Override
+    public boolean removeRecipe(Long i) {
+        if (recipes.containsKey(i)) {
+            recipes.remove(i);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editRecipe(Long i, Recipe recipe) {
+        if (recipes.containsKey(i)) {
+            recipes.replace(i, recipe);
+            return true;
+        }
+        return false;
     }
 }

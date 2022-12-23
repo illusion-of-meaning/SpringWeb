@@ -6,6 +6,10 @@ import java.util.Map;
 
 public interface RecipeBookService {
     void addRecipe(Recipe recipe);
-    Map<Integer, Recipe> getAllRecipes();
-    Recipe getRecipe(Integer i);
+    Map<Long, Recipe> getAllRecipes();
+    Recipe getRecipe(Long i);
+
+    boolean removeRecipe(Long i);
+
+    boolean editRecipe(Long i, Recipe recipe);
 }
