@@ -1,23 +1,17 @@
 package com.asherbakov.springweb.controllers;
 
-import com.asherbakov.springweb.models.Ingredient;
 import com.asherbakov.springweb.models.Recipe;
 import com.asherbakov.springweb.services.RecipeBookService;
-import com.asherbakov.springweb.services.impl.IngredientsImpl;
 import com.asherbakov.springweb.services.impl.RecipeBookImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
-    private String name;
-    private int cookingTime;
-    private Map<Long, Ingredient> ingredients = new HashMap<>();
-    private List<String> steps;
     @Autowired
     RecipeBookService recipeBookService;
 
@@ -26,22 +20,8 @@ public class RecipeController {
                                              @RequestParam("time") int cookingTime,
                                              @RequestParam Long[] ingId,
                                              @RequestParam String[] steps) {
-        Map<Long, Ingredient> ingredients = new HashMap<>();
-
-        if (ingId.length > 0) {
-            Long id = 0L;
-            for (Long i : ingId) {
-                ingredients.put(id++, new IngredientsImpl().getIngredient(i));
-            }
-        }
-
-        if (steps.length > 0) {
-            this.steps = new ArrayList<>(Arrays.stream(steps).toList());
-        } else {
-            this.steps = new ArrayList<>();
-        }
         try {
-            recipeBookService.addRecipe(new Recipe(name, cookingTime, ingredients, this.steps));
+            recipeBookService.addRecipe(name, cookingTime, ingId, steps);
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().build();
         }
