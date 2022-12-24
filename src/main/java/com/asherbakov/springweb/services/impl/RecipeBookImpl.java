@@ -43,7 +43,7 @@ public class RecipeBookImpl implements RecipeBookService {
             stepList = new ArrayList<>();
         }
 
-        recipes.put(id++, new Recipe(name, cookingTime, ingredients, stepList));
+        addRecipe(new Recipe(name, cookingTime, ingredients, stepList));
     }
 
     @Override
