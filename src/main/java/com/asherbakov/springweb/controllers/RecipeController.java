@@ -2,8 +2,6 @@ package com.asherbakov.springweb.controllers;
 
 import com.asherbakov.springweb.models.Recipe;
 import com.asherbakov.springweb.services.RecipeBookService;
-import com.asherbakov.springweb.services.impl.RecipeBookImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +10,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
-    @Autowired
-    RecipeBookService recipeBookService;
+    private final RecipeBookService recipeBookService;
+
+    public RecipeController(RecipeBookService recipeBookService) {
+        this.recipeBookService = recipeBookService;
+    }
 
     @GetMapping("/add")
     private ResponseEntity<String> addRecipe(@RequestParam String name,
@@ -35,7 +36,7 @@ public class RecipeController {
 
     @GetMapping
     private ResponseEntity<Recipe> getRecipe(@RequestParam Long id) {
-        Recipe recipe = new RecipeBookImpl().getRecipe(id);
+        Recipe recipe = recipeBookService.getRecipe(id);
         if (recipe == null) {
             return ResponseEntity.notFound().build();
         }

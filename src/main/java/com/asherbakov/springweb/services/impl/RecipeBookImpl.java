@@ -4,7 +4,6 @@ import com.asherbakov.springweb.models.Ingredient;
 import com.asherbakov.springweb.models.Recipe;
 import com.asherbakov.springweb.services.IngredientsService;
 import com.asherbakov.springweb.services.RecipeBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,9 +12,11 @@ import java.util.*;
 public class RecipeBookImpl implements RecipeBookService {
     private static Long id = 0L;
     private static final Map<Long, Recipe> recipes = new HashMap<>();
+    private final IngredientsService ingredientsService;
+    public RecipeBookImpl(IngredientsService ingredientsService) {
+        this.ingredientsService = ingredientsService;
+    }
 
-    @Autowired
-    IngredientsService ingredientsService;
 
     @Override
     public void addRecipe(Recipe recipe) {

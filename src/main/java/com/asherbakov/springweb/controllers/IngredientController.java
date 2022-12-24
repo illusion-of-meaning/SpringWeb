@@ -2,7 +2,6 @@ package com.asherbakov.springweb.controllers;
 
 import com.asherbakov.springweb.models.Ingredient;
 import com.asherbakov.springweb.services.IngredientsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +10,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
-    @Autowired
-    IngredientsService ingredientsService;
+    private final IngredientsService ingredientsService;
+
+    public IngredientController(IngredientsService ingredientsService) {
+        this.ingredientsService = ingredientsService;
+    }
 
     @GetMapping("/add")
     private ResponseEntity<String> addIngredient(@RequestParam String name,
