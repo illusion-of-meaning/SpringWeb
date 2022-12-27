@@ -28,7 +28,7 @@ public class Ingredient {
         if (weight > 0) {
             this.weight = weight;
         } else {
-            throw new IllegalArgumentException("Количество игредиентов не задано, либо задано не корректно.");
+            throw new IllegalArgumentException("Количество ингредиентов не задано, либо задано не корректно.");
         }
     }
 

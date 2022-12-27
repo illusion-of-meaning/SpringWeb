@@ -1,5 +1,6 @@
 package com.asherbakov.springweb.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 public class MainController {
+    @Operation(summary = "Главная страница сайта")
     @GetMapping("/")
     private String mainPage() {
         return """
@@ -29,6 +31,7 @@ public class MainController {
                 """;
     }
 
+    @Operation(summary = "Информация о приложении")
     @GetMapping("/info")
     private String infoPage() {
         final String AUTHOR = "Щербаков Антон";
