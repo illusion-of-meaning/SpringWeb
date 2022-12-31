@@ -2,6 +2,7 @@ package com.asherbakov.springweb.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Recipe {
     private String name;
     private int cookingTime;

@@ -6,7 +6,9 @@ import java.util.Map;
 
 public interface IngredientsService {
     void addIngredient(Ingredient ingredient);
+
     Map<Long, Ingredient> getAllIngredients();
+
     Ingredient getIngredient(Long i);
 
     boolean removeIngredient(Long id);

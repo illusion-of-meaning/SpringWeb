@@ -2,9 +2,11 @@ package com.asherbakov.springweb.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Ingredient {
     private String name;
     private int weight;
