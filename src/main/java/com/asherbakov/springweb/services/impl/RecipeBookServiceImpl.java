@@ -47,7 +47,7 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
     @Override
     public void addRecipe(String name, int cookingTime, Long[] ingId, String[] steps) {
-        List<String> stepList;
+        List<String> stepList = new ArrayList<>();
         Map<Long, Ingredient> ingredients = new HashMap<>();
 
         if (ingId.length > 0) {
@@ -59,8 +59,6 @@ public class RecipeBookServiceImpl implements RecipeBookService {
 
         if (steps.length > 0) {
             stepList = new ArrayList<>(Arrays.stream(steps).toList());
-        } else {
-            stepList = new ArrayList<>();
         }
 
         addRecipe(new Recipe(name, cookingTime, ingredients, stepList));

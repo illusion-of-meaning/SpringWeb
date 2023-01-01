@@ -3,6 +3,7 @@ package com.asherbakov.springweb.services.impl;
 import com.asherbakov.springweb.services.FileService;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,6 +36,17 @@ public class FileServiceImpl implements FileService {
         return result;
     }
 
+    @Override
+    public File getDataFile(Path path) {
+        return path.toFile();
+    }
+
+    @Override
+    public File getDataFile(String path) {
+        Path p = Path.of(path);
+        return getDataFile(p);
+    }
+
     private boolean cleanFile(Path path) {
         try {
             Files.deleteIfExists(path);
@@ -46,4 +58,5 @@ public class FileServiceImpl implements FileService {
         }
         return true;
     }
+
 }
