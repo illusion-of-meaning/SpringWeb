@@ -10,6 +10,7 @@ public interface RecipeBookService {
     void addRecipe(String name, int cookingTime, Long[] ingId, String[] steps);
 
     Map<Long, Recipe> getAllRecipes();
+    String getAllTextRecipes();
 
     Recipe getRecipe(Long i);
 

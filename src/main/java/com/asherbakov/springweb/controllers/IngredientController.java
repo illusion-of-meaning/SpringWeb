@@ -83,6 +83,10 @@ public class IngredientController {
                                     mediaType = "application/json"
                             )
                     }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Ингредиент не найден"
             )
     })
     @GetMapping
@@ -100,7 +104,7 @@ public class IngredientController {
                     description = "Ингредиент удален"
             ),
             @ApiResponse(
-                    responseCode = "404",
+                    responseCode = "400",
                     description = "Ингредиент не найден"
             )
     })

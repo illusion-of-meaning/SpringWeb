@@ -77,7 +77,7 @@ public class RecipeController {
                     }
             ),
             @ApiResponse(
-                    responseCode = "404",
+                    responseCode = "400",
                     description = "Рецепт не найден"
             )
     })

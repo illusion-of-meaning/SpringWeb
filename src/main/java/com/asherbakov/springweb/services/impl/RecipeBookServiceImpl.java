@@ -70,6 +70,25 @@ public class RecipeBookServiceImpl implements RecipeBookService {
     }
 
     @Override
+    public String getAllTextRecipes() {
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<Long, Recipe> entry : recipes.entrySet()) {
+            result.append(entry.getValue().getName()).append("\n");
+            result.append("Время приготовления: ").append(entry.getValue().getCookingTime()).append(" минут.\n");
+            result.append("Ингредиенты:\n");
+            entry.getValue().getIngredients().forEach((K,V) ->
+                            result.append(V.getName()).append(" - ").append(V.getWeight()).append(V.getMeasureUnit()).append("\n")
+                    );
+            result.append("Инструкция приготовления:\n");
+            entry.getValue().getSteps().forEach((V) ->
+                            result.append(V).append("\n")
+                    );
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
+    @Override
     public Recipe getRecipe(Long i) {
         return recipes.getOrDefault(i, null);
     }

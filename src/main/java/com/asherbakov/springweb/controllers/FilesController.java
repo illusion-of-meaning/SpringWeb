@@ -1,6 +1,7 @@
 package com.asherbakov.springweb.controllers;
 
 import com.asherbakov.springweb.services.FileService;
+import com.asherbakov.springweb.services.RecipeBookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,16 +26,19 @@ public class FilesController {
     private String recipeFile;
     @Value("${ingredient.file}")
     private String ingredientFile;
-    private final FileService fileService;
 
-    public FilesController(FileService fileService) {
+    private final FileService fileService;
+    private final RecipeBookService recipeBookService;
+
+    public FilesController(FileService fileService, RecipeBookService recipeBookService) {
         this.fileService = fileService;
+        this.recipeBookService = recipeBookService;
     }
 
     @Operation(summary = "Экспорт",
             description = "Экспрот рецептов в файл")
     @GetMapping("/export")
-    private ResponseEntity<InputStreamResource> downloadFiles() throws FileNotFoundException {
+    private ResponseEntity<InputStreamResource> exportFiles() throws FileNotFoundException {
         File file = fileService.getDataFile(recipeFile);
         if (file.exists()) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
@@ -46,6 +50,21 @@ public class FilesController {
         } else {
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @Operation(summary = "Скачать рецепты",
+            description = "Скачивание рецептов в текстовый файл")
+    @GetMapping("/download")
+    private ResponseEntity<byte[]> downloadFiles() {
+        String recipes = recipeBookService.getAllTextRecipes();
+        if (recipes != null && !recipes.isBlank()) {
+            byte[] result = recipes.getBytes();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"recipes.txt\"")
+                    .body(result);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Импорт рецептов",
