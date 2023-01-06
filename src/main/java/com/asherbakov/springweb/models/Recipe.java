@@ -1,0 +1,64 @@
+package com.asherbakov.springweb.models;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Getter
+@EqualsAndHashCode
+@NoArgsConstructor
+public class Recipe {
+    private String name;
+    private int cookingTime;
+    private Map<Long, Ingredient> ingredients = new HashMap<>();
+    private List<String> steps = new ArrayList<>();
+
+    public Recipe(String name, int cookingTime, Map<Long, Ingredient> ingredients, List<String> steps) {
+        setName(name);
+        setIngredients(ingredients);
+        setSteps(steps);
+        setCookingTime(cookingTime);
+    }
+
+    public void setName(String name) {
+        if (name != null && !name.isBlank()) {
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("Не задано название рецепта");
+        }
+    }
+
+    public void setCookingTime(int cookingTime) {
+        if (cookingTime > 0) {
+            this.cookingTime = cookingTime;
+        } else {
+            throw new IllegalArgumentException("Время приготовления не задано, либо задано не корректно.");
+        }
+    }
+
+    public void setIngredients(Map<Long, Ingredient> ingredients) {
+        if (!ingredients.isEmpty()) {
+            this.ingredients = ingredients;
+        } else {
+            throw new IllegalArgumentException("Список ингредиентов пуст.");
+        }
+    }
+
+    public void setSteps(List<String> steps) {
+        if (!steps.isEmpty()) {
+            this.steps = steps;
+        } else {
+            throw new IllegalArgumentException("Список шагов приготовления пуст.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s:\n\tвремя приготовления: %s\n\tингредиенты: %s\n\tшаги приготовления: %s", name, cookingTime, ingredients, steps);
+    }
+}
